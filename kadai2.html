@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>オセロ</title>
+</head>
+
+<body>
+<h1>オセロ</h1>
+<p><span id="winner_tag"></span></p>
+<canvas id="canvas"></canvas>
+<script>
+  let canvas = document.getElementById('canvas');
+  let ctx = canvas.getContext('2d');
+
+  canvas.width = 600;
+	canvas.height = 600;
+
+  let w = 480, h = 480;
+	let x0 = 60, y0 = 60;
+  ctx.strokeRect(x0,y0,w,h);
+
+  ctx.beginPath();
+  //縦線の描写
+  for(let i = 1; i < 8 ; i++){
+    ctx.moveTo(60*(i+1), 60);
+  	ctx.lineTo(60*(i+1), 540);
+  }
+  //横線の描写
+  for(let l = 1; l < 8 ; l++){
+    ctx.moveTo(60, 60*(l+1) );
+  	ctx.lineTo(540, 60*(l+1) );
+  }
+	ctx.stroke();
+
+
+</script>
+</body>
+</html>
