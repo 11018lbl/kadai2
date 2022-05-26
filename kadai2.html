@@ -54,26 +54,55 @@
       game[i] = new Array(0,0,0,0,0,0,0,0);
     }
   //最初のコマを格納
+  game[3][3]=1;
   game[4][4]=1;
-  game[5][5]=1;
-  game[4][5]=-1;
-  game[5][4]=-1;
+  game[3][4]=-1;
+  game[4][3]=-1;
 
   //黒いコマを配置する関数
   function brack_koma(x,y){
   ctx.beginPath();
   ctx.arc(60*x+30, 60*y+30, 25, 0, 2 * Math.PI, false);
   ctx.fill();
-  game[x][y]=1;
+  //game[x][y]=1;
   }
   //白いコマを配置する関数
   function white_koma(x,y){
   ctx.beginPath();
-  ctx.arc(60*x+30, 60*y+30, 40, 0, 2 * Math.PI, false);
-  ctx.fill();
-  game[x][y]=-1;
+  ctx.arc(60*x+30, 60*y+30, 25, 0, 2 * Math.PI, false);
+  ctx.stroke();
+  //game[x][y]=-1;
   }
 
+  //カーソルの内部座標を返す関数
+  function boardxy(x,y){
+    //let board = new Array();
+    //board[0]
+      const xx = x-x%60+30;
+    //board[1]
+      const yy = y-y%60+30;
+    return [xx,yy];
+  }
+
+  //クリックイベント
+  function onClick(e) {
+    let rect = e.target.getBoundingClientRect();
+    x = e.clientX - rect.left;
+    y = e.clientY - rect.top;
+
+  let board = boardxy(x,y);
+  x = board[0];
+  y = board[1];
+
+  ctx.beginPath();
+  ctx.arc(x, y, 25, 0, 2 * Math.PI, false);
+  ctx.stroke();
+
+  //white_koma(x,y);
+
+  }
+
+  canvas.addEventListener('click', onClick, false);
 
 </script>
 </body>
