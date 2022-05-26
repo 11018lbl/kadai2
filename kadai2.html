@@ -7,7 +7,8 @@
 
 <body>
 <h1>オセロ</h1>
-<p><span id="winner_tag"></span></p>
+<p><span id="black_score"></span></p>
+<p><span id="white_score"></span></p>
 <canvas id="canvas"></canvas>
 <script>
   let canvas = document.getElementById('canvas');
@@ -27,12 +28,36 @@
   	ctx.lineTo(60*(i+1), 540);
   }
   //横線の描写
-  for(let l = 1; l < 8 ; l++){
-    ctx.moveTo(60, 60*(l+1) );
-  	ctx.lineTo(540, 60*(l+1) );
+  for(let i = 1; i < 8 ; i++){
+    ctx.moveTo(60, 60*(i+1) );
+  	ctx.lineTo(540, 60*(i+1) );
   }
 	ctx.stroke();
 
+  //最初のコマの描写
+  ctx.beginPath();
+  ctx.arc(270, 270, 25, 0, 2 * Math.PI, false);
+  ctx.fill();
+  ctx.beginPath();
+  ctx.arc(330, 330, 25, 0, 2 * Math.PI, false);
+  ctx.fill();
+  ctx.beginPath();
+  ctx.arc(270, 330, 25, 0, 2 * Math.PI, false);
+  ctx.stroke();
+  ctx.beginPath();
+  ctx.arc(330, 270, 25, 0, 2 * Math.PI, false);
+  ctx.stroke();
+
+  //座標の設定
+  let game = new Array();
+    for(i=0; i<8; i++){
+      game[i] = new Array(0,0,0,0,0,0,0,0);
+    }
+  //最初のコマを格納
+  game[4][4]=1;
+  game[5][5]=1;
+  game[4][5]=-1;
+  game[5][4]=-1;
 
 </script>
 </body>
