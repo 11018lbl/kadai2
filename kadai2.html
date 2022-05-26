@@ -59,6 +59,22 @@
   game[4][5]=-1;
   game[5][4]=-1;
 
+  //黒いコマを配置する関数
+  function brack_koma(x,y){
+  ctx.beginPath();
+  ctx.arc(60x+30, 60x+30, 25, 0, 2 * Math.PI, false);
+  ctx.fill();
+  game[x][y]=1;
+  }
+  //白いコマを配置する関数
+  function white_koma(x,y){
+  ctx.beginPath();
+  ctx.arc(60x+30, 60y+30, 40, 0, 2 * Math.PI, false);
+  ctx.fill();
+  game[x][y]=-1;
+  }
+  
+
 </script>
 </body>
 </html>
