@@ -60,26 +60,25 @@
   game[4][3]=-1;
 
   //黒いコマを配置する関数
-  function brack_koma(x,y){
+  function black_koma(x,y){
   ctx.beginPath();
-  ctx.arc(60*x+30, 60*y+30, 25, 0, 2 * Math.PI, false);
+  ctx.arc(x, y, 25, 0, 2 * Math.PI, false);
   ctx.fill();
-  //game[x][y]=1;
+  game[(x-30)/60][(y-30)/60]=1;
   }
   //白いコマを配置する関数
   function white_koma(x,y){
+		console.log(x);
+		console.log(y);
   ctx.beginPath();
-  ctx.arc(60*x+30, 60*y+30, 25, 0, 2 * Math.PI, false);
+  ctx.arc(x, y, 25, 0, 2 * Math.PI, false);
   ctx.stroke();
-  //game[x][y]=-1;
+  game[(x-30)/60][(y-30)/60]=-1;
   }
 
   //カーソルの内部座標を返す関数
   function boardxy(x,y){
-    //let board = new Array();
-    //board[0]
       const xx = x-x%60+30;
-    //board[1]
       const yy = y-y%60+30;
     return [xx,yy];
   }
@@ -93,12 +92,6 @@
   let board = boardxy(x,y);
   x = board[0];
   y = board[1];
-
-  ctx.beginPath();
-  ctx.arc(x, y, 25, 0, 2 * Math.PI, false);
-  ctx.stroke();
-
-  //white_koma(x,y);
 
   }
 
