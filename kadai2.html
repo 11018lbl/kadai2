@@ -7,6 +7,7 @@
 
 <body>
 <h1>オセロ</h1>
+<p><span id="turn_check"></span></p>
 <p><span id="black_score"></span></p>
 <p><span id="white_score"></span></p>
 <canvas id="canvas"></canvas>
@@ -53,11 +54,66 @@
     for(i=0; i<8; i++){
       game[i] = new Array(0,0,0,0,0,0,0,0);
     }
+		/*座標の状態
+			0:初期状態
+			1:黒のコマ
+			-1:白のコマ
+			3:黒が置けるマス
+			-3:白が置けるマス
+			9:白と黒が置けるマス*/
+
+	//ターンの管理
+		//nowturn:1で黒,-1で白のターン
+	let nowturn = 1;
+	function turn_check(nowturn){
+		let wint = document.getElementById("turn_check");
+		let turnb = 0;
+		let turnw = 0;
+			for(i=0;i<8 && turngo = 0;i++){
+				for(l=0;l<8 && turngo = 0;l++){
+					if(game[i][l]=3 || game[i][l]=9){
+						turnb=1;
+					}
+				}
+			}
+			for(i=0;i<8 && turngo = 0;i++){
+				for(l=0;l<8 && turngo = 0;l++){
+					if(game[i][l]=-3 || game[i][l]=9){
+						turnw=1;
+					}
+				}
+			}
+		switch (turnb+turnw) {
+			case 2:	if(nowturn = 1){
+				nowturn = -1;
+				wint.innerHTML="現在のターン：白";
+			}else{
+				nowturn = 1;
+				wint.innerHTML="現在のターン：黒";
+			}
+				break;
+			case 1:if(turnb = 1){
+				nowturn = 1;
+				wint.innerHTML="現在のターン：黒";
+			}else {
+				nowturn = -1;
+				wint.innerHTML="現在のターン：白";
+			}
+			default:0
+				nowturn = 0;
+				gameend = 0;
+				wint.innerHTML="ゲームは終了しました";
+		}
+	}
+
   //最初のコマを格納
   game[3][3]=1;
   game[4][4]=1;
   game[3][4]=-1;
   game[4][3]=-1;
+
+	//ゲームの終了
+	let gameend = 0;
 
   //黒いコマを配置する関数
   function black_koma(x,y){
