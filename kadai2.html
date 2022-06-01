@@ -35,20 +35,6 @@
   }
 	ctx.stroke();
 
-  //最初のコマの描写
-  ctx.beginPath();
-  ctx.arc(270, 270, 25, 0, 2 * Math.PI, false);
-  ctx.fill();
-  ctx.beginPath();
-  ctx.arc(330, 330, 25, 0, 2 * Math.PI, false);
-  ctx.fill();
-  ctx.beginPath();
-  ctx.arc(270, 330, 25, 0, 2 * Math.PI, false);
-  ctx.stroke();
-  ctx.beginPath();
-  ctx.arc(330, 270, 25, 0, 2 * Math.PI, false);
-  ctx.stroke();
-
   //座標の設定
   let game = new Array();
     for(i=0; i<10; i++){
@@ -74,15 +60,15 @@
 		let wint = document.getElementById("turn_check");
 		let turnb = 0;
 		let turnw = 0;
-			for(i=0;i<8 && turngo == 0;i++){
-				for(l=0;l<8 && turngo == 0;l++){
+			for(i=1;i<9 && turngo == 0;i++){
+				for(l=1;l<9 && turngo == 0;l++){
 					if(game[i][l]==3 || game[i][l]==9){
 						turnb=1;
 					}
 				}
 			}
-			for(i=0;i<8 && turngo == 0;i++){
-				for(l=0;l<8 && turngo == 0;l++){
+			for(i=1;i<9 && turngo == 0;i++){
+				for(l=1;l<9 && turngo == 0;l++){
 					if(game[i][l]==-3 || game[i][l]==9){
 						turnw=1;
 					}
@@ -112,13 +98,44 @@
 	}
 
   //最初のコマを格納
-  game[3][3]=1;
   game[4][4]=1;
-  game[3][4]=-1;
-  game[4][3]=-1;
+  game[5][5]=1;
+  game[4][5]=-1;
+  game[5][4]=-1;
 
 	//ゲームの終了
 	let gameend = 0;
+
+	//内部処理に応じてコマを描写する関数
+	function crean_up(){
+	//コマの描写をすべて消す
+	for(i=1; i<9; i++){
+		for(l=1; l<9; l++){
+			if(game[i][l]==1 || game[i][l]==-1){
+				ctx.globalCompositeOperation = "destination-out";
+  			ctx.beginPath();
+  			ctx.arc(60*i+30, 60*l+30, 26, 0, 2*Math.PI, false);
+  			ctx.fill();
+				ctx.globalCompositeOperation = "source-over";
+			}
+		}
+	}
+	//コマを再び描写する
+	for(i=1; i<9; i++){
+		for(l=1; l<9; l++){
+			if(game[i][l]==1){
+				ctx.beginPath();
+			  ctx.arc(60*i+30, 60*l+30, 25, 0, 2 * Math.PI, false);
+			  ctx.fill();
+			}else if(game[i][l]==-1){
+				ctx.beginPath();
+			  ctx.arc(60*i+30, 60*l+30, 25, 0, 2 * Math.PI, false);
+			  ctx.stroke();
+			}
+		}
+	}
+	}
+
 
   //黒いコマを配置する関数
   function black_koma(x,y){
@@ -143,6 +160,9 @@
       const yy = y-y%60+30;
     return [xx,yy];
   }
+
+	//最初にボードのコマを描写
+	crean_up();
 
   //クリックイベント
   function onClick(e) {
