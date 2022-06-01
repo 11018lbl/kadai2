@@ -50,7 +50,236 @@
 
 	//ボードの管理
 	function board_check(){
-
+	for(i=1;i<9;i++){
+		for(l=1;l<9;l++){
+			if(game[i][l]==3 || game[i][l]==-3 || game[i][l]==9){
+				game[i][l]=0;
+			}
+		}
+	}
+	for(i=1; i<9; i++){
+		for(l=1; l<9;l++){
+			if(game[i][l]==0){
+				game[i][l] = check_r(i,l);
+				game[i][l] = check_l(i,l);
+				game[i][l] = check_u(i,l);
+				game[i][l] = check_d(i,l);
+				game[i][l] = check_xmmpp(i,l);
+				game[i][l] = check_xppmm(i,l);
+				game[i][l] = check_xmppm(i,l);
+				game[i][l] = check_xpmmp(i,l);
+			}
+		}
+	}
+	for(i=1;i<9;i++ ){
+		for(l=1; l<9; l++){
+			if(game[i][l]==3){
+				if(check_r(i,l)==-3){
+					game[i][l]=9;
+				}
+				if(check_l(i,l)==-3){
+					game[i][l]=9;
+				}
+				if(check_u(i,l)==-3){
+					game[i][l]=9;
+				}
+				if(check_d(i,l)==-3){
+					game[i][l]=9;
+				}
+				if(check_xppmm(i,l)==-3){
+					game[i][l]=9;
+				}
+				if(check_xmmpp(i,l)==-3){
+					game[i][l]=9;
+				}
+				if(check_xpmmp(i,l)==-3){
+					game[i][l]=9;
+				}
+				if(check_xmppm(i,l)==-3){
+					game[i][l]=9;
+				}
+			}
+		}
+	}
+	for(i=1;i<9;i++ ){
+		for(l=1; l<9; l++){
+			if(game[i][l]==-3){
+				if(check_r(i,l)==3){
+					game[i][l]=9;
+				}
+				if(check_l(i,l)==3){
+					game[i][l]=9;
+				}
+				if(check_u(i,l)==3){
+					game[i][l]=9;
+				}
+				if(check_d(i,l)==3){
+					game[i][l]=9;
+				}
+				if(check_xppmm(i,l)==3){
+					game[i][l]=9;
+				}
+				if(check_xmmpp(i,l)==3){
+					game[i][l]=9;
+				}
+				if(check_xpmmp(i,l)==3){
+					game[i][l]=9;
+				}
+				if(check_xmppm(i,l)==3){
+					game[i][l]=9;
+				}
+			}
+		}
+	}
+	}
+	//右方向に調べる関数
+	function check_r(x,y){
+		//右隣が１なら0,3,-3,9,-1まで回して0,3,-3,9なら何もなし,-1なら3を返す
+			//-1なら同様にして1なら-3を返す
+		switch(game[x+1][y]){
+			case 1 :for(m=1;game[x+m][y]==1;m++){}
+							if(game[x+m][y]==-1) {
+									return -3;
+							}
+							break;
+			case -1:for(m=1;game[x+m][y]==-1;m++){}
+							if(game[x+m][y]==1) {
+									return 3;
+							}
+							break;
+			default:
+									return 0;
+							break;
+		}
+	}
+	//左方向
+	function check_l(x,y){
+		//左隣が１なら0,3,-3,9,-1まで回して0,3,-3,9なら何もなし,-1なら-3を置く
+			//-1なら同様にして1なら3を置く
+		switch(game[x-1][y]){
+			case 1 :for(m=1;game[x-m][y]==1;m++){}
+							if(game[x-m][y]==-1) {
+									return -3;
+							}
+							break;
+			case -1:for(m=1;game[x-m][y]==-1;m++){}
+							if(game[x-m][y]==1) {
+									return 3;
+							}
+							break;
+			default:return 0;
+							break;
+		}
+	}
+	//下
+	function check_d(x,y){
+		//下隣が１なら0,3,-3,9,-1まで回して0,3,-3,9なら何もなし,-1なら-3を置く
+			//-1なら同様にして1なら3を置く
+		switch(game[x][y+1]){
+			case 1 :for(m=1;game[x][y+m]==1;m++){}
+							if(game[x][y+m]==-1) {
+									return -3;
+							}
+							break;
+			case -1:for(m=1;game[x][y+m]==-1;m++){}
+							if(game[x][y+m]==1) {
+									return 3;
+							}
+							break;
+			default:return 0;
+							break;
+		}
+	}
+	//上
+	function check_u(x,y){
+		//上隣が１なら0,3,-3,9,-1まで回して0,3,-3,9なら何もなし,-1なら-3を置く
+			//-1なら同様にして1なら3を置く
+		switch(game[x][y-1]){
+			case 1 :for(m=1;game[x][y-m]==1;m++){}
+							if(game[x][y-m]==-1) {
+									return -3;
+							}
+							break;
+			case -1:for(m=1;game[x][y-m]==-1;m++){}
+							if(game[x][y-m]==1) {
+									return 3;
+							}
+							break;
+			default:return 0;
+							break;
+		}
+	}
+	//左上から右下
+	function check_xmmpp(x,y){
+		switch(game[x+1][y+1]){
+			case 1 :for(m=1;game[x+m][y+m]==1;m++){}
+							if(game[x+m][y+m]==-1) {
+									return -3;
+							}
+							break;
+			case -1:for(m=1;game[x+m][y+m]==-1;m++){}
+							if(game[x+m][y+m]==1) {
+									return 3;
+							}
+							break;
+			default:
+									return 0;
+							break;
+		}
+	}
+	//右下から左上
+	function check_xppmm(x,y){
+		switch(game[x-1][y-1]){
+			case 1 :for(m=1;game[x-m][y-m]==1;m++){}
+							if(game[x-m][y-m]==-1) {
+									return -3;
+							}
+							break;
+			case -1:for(m=1;game[x-m][y-m]==-1;m++){}
+							if(game[x-m][y-m]==1) {
+									return 3;
+							}
+							break;
+			default:
+									return 0;
+							break;
+		}
+	}
+	//左下から右下
+	function check_xmppm(x,y){
+		switch(game[x+1][y-1]){
+			case 1 :for(m=1;game[x+m][y-m]==1;m++){}
+							if(game[x+m][y-m]==-1) {
+									return -3;
+							}
+							break;
+			case -1:for(m=1;game[x+m][y-m]==-1;m++){}
+							if(game[x+m][y-m]==1) {
+									return 3;
+							}
+							break;
+			default:
+									return 0;
+							break;
+		}
+	}
+	//左下から右上
+	function check_xpmmp(x,y){
+		switch(game[x-1][y+1]){
+			case 1 :for(m=1;game[x-m][y+m]==1;m++){}
+							if(game[x-m][y+m]==-1) {
+									return -3;
+							}
+							break;
+			case -1:for(m=1;game[x-m][y+m]==-1;m++){}
+							if(game[x-m][y+m]==1) {
+									return 3;
+							}
+							break;
+			default:
+									return 0;
+							break;
+		}
 	}
 
 	//ターンの管理
@@ -58,12 +287,14 @@
 	let nowturn = 1;
 	function turn_check(nowturn){
 		let wint = document.getElementById("turn_check");
+		let turngo = 0;
 		let turnb = 0;
 		let turnw = 0;
 			for(i=1;i<9 && turngo == 0;i++){
 				for(l=1;l<9 && turngo == 0;l++){
 					if(game[i][l]==3 || game[i][l]==9){
 						turnb=1;
+						turngo = 1;
 					}
 				}
 			}
@@ -71,6 +302,7 @@
 				for(l=1;l<9 && turngo == 0;l++){
 					if(game[i][l]==-3 || game[i][l]==9){
 						turnw=1;
+						turngo = 1;
 					}
 				}
 			}
@@ -95,13 +327,16 @@
 				gameend = 0;
 				wint.innerHTML="ゲームは終了しました";
 		}
+		turngo = 0;
 	}
 
   //最初のコマを格納
+	function start(){
   game[4][4]=1;
   game[5][5]=1;
   game[4][5]=-1;
   game[5][4]=-1;
+	}
 
 	//ゲームの終了
 	let gameend = 0;
@@ -134,7 +369,7 @@
 			}
 		}
 	}
-	}
+}
 
 
   //黒いコマを配置する関数
@@ -161,8 +396,14 @@
     return [xx,yy];
   }
 
+	//最初にボードのコマを配置
+	start();
 	//最初にボードのコマを描写
 	crean_up();
+	//最初にボードの打てるコマを確認
+	board_check();
+
+	console.log(game[4][5]);
 
   //クリックイベント
   function onClick(e) {
@@ -175,9 +416,19 @@
   x = board[0];
   y = board[1];
 
+	/*switch (game[x][y]) {
+		case 3:
+		case -3:
+		case 9:*/
 	white_koma(x,y);
+
+	board_check();
+	//turn_check();
+
+	/*	default:break;
+	}*/
 	}
-  }
+	}
 
   canvas.addEventListener('click', onClick, false);
 
