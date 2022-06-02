@@ -330,6 +330,93 @@
 		}
 	}
 
+	//ボードのコマをめくる
+	function change(x,y){
+	if(game[x][y]==1){
+		if(check_r(x,y)==3){
+			for(n=1;game[x+n][y]==-1;n++){
+				game[x+n][y]=1;
+			}
+		}
+		if(check_l(x,y)==3){
+			for(n=1;game[x-n][y+n]==-1;n++){
+				game[x-n][y]=1;
+			}
+		}
+		if(check_d(x,y)==3){
+			for(n=1;game[x][y+n]==-1;n++){
+				game[x][y+n]=1;
+			}
+		}
+		if(check_u(x,y)==3){
+			for(n=1;game[x][y-n]==-1;n++){
+				game[x][y-n]=1;
+			}
+		}
+		if(check_xmmpp(x,y)==3){
+			for(m=1;game[x+m][y+m] == -1;m++){
+				game[x][y]=1;
+			}
+		}
+		if(check_xppmm(x,y)==3){
+			for(m=1;game[x-m][y-m] == -1;m++){
+				game[x][y]=1;
+			}
+		}
+		if(check_xmppm(x,y)==3){
+			for(m=1;game[x+m][y-m] == -1;m++){
+				game[x][y]=1;
+			}
+		}
+		if(check_xpmmp(x,y)==3){
+			for(m=1;game[x-m][y+m] == -1;m++){
+				game[x][y]=1;
+			}
+		}
+	}else{
+		if(check_r(x,y)==-3){
+			for(n=1;game[x+n][y]==1;n++){
+				game[x+n][y]=-1;
+			}
+		}
+		if(check_l(x,y)==-3){
+			for(n=1;game[x-n][y+n]==1;n++){
+				game[x-n][y]=-1;
+			}
+		}
+		if(check_d(x,y)==-3){
+			for(n=1;game[x][y+n]==1;n++){
+				game[x][y+n]=-1;
+			}
+		}
+		if(check_u(x,y)==-3){
+			for(n=1;game[x][y-n]==1;n++){
+				game[x][y-n]=-1;
+			}
+		}
+		if(check_xmmpp(x,y)==-3){
+			for(m=1;game[x+m][y+m] == 1;m++){
+				game[x][y]=-1;
+			}
+		}
+		if(check_xppmm(x,y)==-3){
+			for(m=1;game[x-m][y-m] == 1;m++){
+				game[x][y]=-1;
+			}
+		}
+		if(check_xmppm(x,y)==-3){
+			for(m=1;game[x+m][y-m] == 1;m++){
+				game[x][y]=-1;
+			}
+		}
+		if(check_xpmmp(x,y)==-3){
+			for(m=1;game[x-m][y+m] == 1;m++){
+				game[x][y]=-1;
+			}
+		}
+	}
+}
+
 	//ターンの管理
 		//nowturn:1で黒,-1で白のターン
 	let nowturn = -1;
@@ -418,6 +505,13 @@
 			}
 		}
 	}
+	//外周を0に戻す
+	for(i=0;i<10;i++){
+		game[i][0]=0;
+		game[0][i]=0;
+		game[i][9]=0;
+		game[9][i]=0;
+	}
 }
 
 
@@ -488,6 +582,93 @@
 			}
 			default:break;
 		}
+	change(boardx,boardy);
+	console.log(boardx,boardy);
+	//ボードのコマをめくる
+	/*if(game[boardx][boardy]==1){
+		if(check_r(boardx,boardy)==3){
+			for(n=1;game[boardx+n][boardy]==-1;n++){
+				game[boardx+n][boardy]=1;
+			}
+		}
+		if(check_l(boardx,boardy)==3){
+			for(n=1;game[boardx-n][boardy+n]==-1;n++){
+				game[boardx-n][boardy]=1;
+			}
+		}
+		if(check_d(boardx,boardy)==3){
+			for(n=1;game[boardx][boardy+n]==-1;n++){
+				game[boardx][boardy+n]=1;
+			}
+		}
+		if(check_u(boardx,boardy)==3){
+			for(n=1;game[boardx][boardy-n]==-1;n++){
+				game[boardx][boardy-n]=1;
+			}
+		}
+		if(check_xmmpp(boardx,boardy)==3){
+			for(m=1;game[boardx+m][boardy+m] == -1;m++){
+				game[boardx][boardy]=1;
+			}
+		}
+		if(check_xppmm(x,y)==3){
+			for(m=1;game[boardx-m][boardy-m] == -1;m++){
+				game[boardx][boardy]=1;
+			}
+		}
+		if(check_xmppm(boardx,boardy)==3){
+			for(m=1;game[boardx+m][boardy-m] == -1;m++){
+				game[boardx][boardy]=1;
+			}
+		}
+		if(check_xpmmp(boardx,boardy)==3){
+			for(m=1;game[boardx-m][boardy+m] == -1;m++){
+				game[boardx][boardy]=1;
+			}
+		}
+	}else{
+		if(check_r(boardx,boardy)==-3){
+			for(n=1;game[boardx+n][boardy]==1;n++){
+				game[boardx+n][boardy]=-1;
+			}
+		}
+		if(check_l(boardx,boardy)==-3){
+			for(n=1;game[boardx-n][boardy+n]==1;n++){
+				game[boardx-n][y]=-1;
+			}
+		}
+		if(check_d(boardx,boardy)==-3){
+			for(n=1;game[boardx][boardy+n]==1;n++){
+				game[boardx][boardy+n]=-1;
+			}
+		}
+		if(check_u(boardx,boardy)==-3){
+			for(n=1;game[boardx][boardy-n]==1;n++){
+				game[boardx][boardy-n]=-1;
+			}
+		}
+		if(check_xmmpp(boardx,boardy)==-3){
+			for(m=1;game[boardx+m][boardy+m] == 1;m++){
+				game[boardx][boardy]=-1;
+			}
+		}
+		if(check_xppmm(boardx,boardy)==-3){
+			for(m=1;game[boardx-m][boardy-m] == 1;m++){
+				game[boardx][boardy]=-1;
+			}
+		}
+		if(check_xmppm(boardx,boardy)==-3){
+			for(m=1;game[boardx+m][boardy-m] == 1;m++){
+				game[boardx][boardy]=-1;
+			}
+		}
+		if(check_xpmmp(boardx,boardy)==-3){
+			for(m=1;game[boardx-m][boardy+m] == 1;m++){
+				game[boardx][boardy]=-1;
+			}
+		}
+	}*/
+
 	crean_up();
 	board_check();
 	nowturn = turn_check(nowturn);
